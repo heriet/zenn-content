@@ -1,0 +1,11 @@
+version: "3.8"
+ 
+services:
+  zenn:
+    build:
+        context: ./
+        dockerfile: zenn.dockerfile
+    image: zenn:latest
+    container_name: zenn
+    volumes:
+      - ./:/workspace
