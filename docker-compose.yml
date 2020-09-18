@@ -9,3 +9,5 @@ services:
     container_name: zenn
     volumes:
       - ./:/workspace
+    ports:
+      - "8000:8000"
