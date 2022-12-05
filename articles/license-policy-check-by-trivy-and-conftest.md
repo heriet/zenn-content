@@ -86,7 +86,7 @@ Total: 2 (HIGH: 2)
 └────────────────────────┴─────────┴────────────────┴──────────┘
 ```
 
-上記を活用することで、ほとんど多くのケースでは、trivyによるライセンスポリシーチェックで十分かもしれません。ただ、みなさんが所属する組織によっては、より複雑なライセンスチェックの仕組みが必要かもしれません。組織やプロダクトの性質によって、 `GPL-2.0` が問題になるケースもあればならない場合もあります。プロジェクトごとに法務的な観点で利用可能なライセンス一覧や無視可能なライセンスを洗い出すのは現実的ではないかもしれません。
+上記を活用することで、ほとんど多くのケースでは、trivyによるライセンスポリシーチェックで十分かもしれません。ただ、みなさんが所属する組織によっては、より複雑なライセンスチェックの仕組みが必要かもしれません。組織やプロダクトの性質によって、 `GPL-2.0` が問題になるケースもあればならない場合もあります。プロジェクトごとに法務的な観点で利用可能なライセンス一覧や無視可能なライセンスを洗い出すのが現実的ではないかもしれません。
 
 また、trivyではいまのところライセンスポリシーチェックとSBOMの生成は分離不可のようです（v0.35時点では、SBOMに対しては脆弱性スキャンのみが可能）。できれば、SBOMの生成と、SBOMに対するライセンスポリシーチェックは別で行いたいです。trivyは多くのパッケージマネージャーに対応してくれてはいますが、trivyでは対応しない言語が今後あるかもしれません。その場合、SBOMの生成は別ツールで行う必要がありますが、ライセンスポリシーチェックの処理は組織全体でなるべく共通の物を使いたいはずです。チェックの処理がtrivyに依存しているとライセンスポリシーチェックができなくなってしまいます。
 
@@ -122,7 +122,7 @@ $ vim policy/bom_format.rego
 package main
 
 deny[msg] {
-	input.bomFormat != "CycloneDX"
+    input.bomFormat != "CycloneDX"
     msg = "bomFormat must be set CycloneDX"
 }
 ```
@@ -226,7 +226,7 @@ import data.cyclonedx
 
 deny[msg] {
     gpl_licenses := ["GPL-1.0", "GPL-2.0", "GPL-3.0"]
-	components := cyclonedx.find_components_contains_licenses(input.components, gpl_licenses)
+    components := cyclonedx.find_components_contains_licenses(input.components, gpl_licenses)
     count(components) > 0
 
     component_names := cyclonedx.concat_components_names(components)
@@ -296,7 +296,7 @@ import data.cyclonedx
 
 deny[msg] {
     gpl_licenses := ["GPL-1.0", "GPL-2.0", "GPL-3.0"]
-	components := cyclonedx.find_components_contains_licenses(input.components, gpl_licenses)
+    components := cyclonedx.find_components_contains_licenses(input.components, gpl_licenses)
     filterd_components := cyclonedx.filter_ignore("gpl-must-not-contain", components)
     count(filterd_components) > 0
 
