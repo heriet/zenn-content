@@ -1,6 +1,4 @@
-FROM node:14.11.0-stretch-slim
-
-WORKDIR /workspace
+FROM node:21.2.0-bookworm-slim
 
 RUN apt update \
  && apt-get install -y --no-install-recommends \
